@@ -34,15 +34,15 @@ RUN R -e "nc <- suppressWarnings(as.integer(Sys.getenv('R_INSTALL_NCPUS', '4')))
   options(Ncpus = nc); \
   install.packages(c('BiocManager','httr','jsonlite','knitr'), repos = 'https://cloud.r-project.org', ask = FALSE)" \
  && R -e "BiocManager::install('GEOquery', ask = FALSE, update = FALSE)" \
- && R -e \"suppressPackageStartupMessages({ \
+ && R -e 'suppressPackageStartupMessages({ \
     library(GEOquery); \
     library(httr); \
     library(jsonlite); \
     library(knitr); \
   }); \
-  cat('GeoDownload OK: GEOquery ', as.character(packageVersion('GEOquery')), \
-      ' httr ', as.character(packageVersion('httr')), \
-      ' jsonlite ', as.character(packageVersion('jsonlite')), '\n', sep='')\" \
+  cat("GeoDownload OK: GEOquery ", as.character(packageVersion("GEOquery")), \
+      " httr ", as.character(packageVersion("httr")), \
+      " jsonlite ", as.character(packageVersion("jsonlite")), "\n", sep="")' \
  && command -v wget \
  && command -v curl \
  && command -v nslookup \
