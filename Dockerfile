@@ -2,7 +2,7 @@ FROM quay.io/1733295510/base-image:V1
 
 LABEL maintainer="1733295510 <1733295510@qq.com>"
 LABEL org.opencontainers.image.title="bulkRNA-GeoDownload"
-LABEL org.opencontainers.image.description="GEO microarray download/runtime image for Quarto: GEOquery + httr/jsonlite + network diagnostics tools."
+LABEL org.opencontainers.image.description="GEO microarray download/runtime image for Quarto: GEOquery + httr/jsonlite/rmarkdown + network diagnostics tools."
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV LANG=zh_CN.UTF-8
@@ -32,17 +32,19 @@ RUN apt-get update \
 RUN R -e "nc <- suppressWarnings(as.integer(Sys.getenv('R_INSTALL_NCPUS', '4'))); \
   nc <- if (is.na(nc) || nc < 1L) 1L else nc; \
   options(Ncpus = nc); \
-  install.packages(c('BiocManager','httr','jsonlite','knitr'), repos = 'https://cloud.r-project.org', ask = FALSE)" \
+  install.packages(c('BiocManager','httr','jsonlite','knitr','rmarkdown'), repos = 'https://cloud.r-project.org', ask = FALSE)" \
  && R -e "BiocManager::install('GEOquery', ask = FALSE, update = FALSE)" \
  && R -e 'suppressPackageStartupMessages({ \
     library(GEOquery); \
     library(httr); \
     library(jsonlite); \
     library(knitr); \
+    library(rmarkdown); \
   }); \
   cat("GeoDownload OK: GEOquery ", as.character(packageVersion("GEOquery")), \
       " httr ", as.character(packageVersion("httr")), \
-      " jsonlite ", as.character(packageVersion("jsonlite")), "\n", sep="")' \
+      " jsonlite ", as.character(packageVersion("jsonlite")), \
+      " rmarkdown ", as.character(packageVersion("rmarkdown")), "\n", sep="")' \
  && command -v wget \
  && command -v curl \
  && command -v nslookup \
