@@ -15,6 +15,7 @@ USER root
 RUN apt-get update \
  && apt-get install -y --no-install-recommends \
     ca-certificates \
+    cmake \
     curl \
     wget \
     dnsutils \
