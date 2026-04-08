@@ -1,4 +1,4 @@
-FROM quay.io/1733295510/base-image:V1
+FROM quay.io/1733295510/base-image:V1.1
 
 LABEL maintainer="1733295510 <1733295510@qq.com>"
 LABEL org.opencontainers.image.title="bulkRNA-GeoDownload"
